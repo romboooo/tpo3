@@ -374,3 +374,47 @@
 **Дано:** Пользователь в форме создания заявки  
 **Когда:** Вводит текст ~5000 символов  
 **Тогда:** Текст принят или обрезан до лимита, тикет создан
+
+# XPath 
+### хэдер
+//button[contains(text(), 'Войти')]
+//a[contains(@href, '/login')]
+//button[contains(text(), 'Регистрация')]
+
+# === Форма авторизации ===
+//input[@name='username']
+//input[@placeholder='Имя аккаунта или почта']
+//input[@type='password']
+//input[@name='password']
+//button[contains(text(), 'Продолжить')]
+//button[@type='submit' and contains(text(), 'Войти')]
+
+# === Форма регистрации ===
+//input[@name='fio']
+//input[@placeholder='Фамилия Имя Отчество']
+//input[@name='email']
+//input[@placeholder='Электронная почта']
+//input[@name='password']
+//input[@placeholder='Пароль']
+//button[contains(text(), 'Зарегистрироваться')]
+
+# === Двухфакторная аутентификация ===
+//input[@name='code']
+//input[@placeholder='Код из письма']
+//button[contains(text(), 'Подтвердить')]
+
+# === Сообщения об ошибках ===
+//div[@data-test-id='error-footer-text']
+//span[contains(@class, 'validation-error')]
+//div[contains(@class, 'alert-error')]
+
+# === Элементы успешного входа ===
+//img[contains(@class, 'avatar')]
+//div[contains(@class, 'user-profile')]
+//a[contains(@href, '/logout')]
+
+# === Выпадающие списки и переключатели ===
+//div[contains(@class, 'dropdown')]//button
+//div[contains(@class, 'dropdown-menu')]//a
+//label[contains(text(), 'Почта')]
+//label[contains(text(), 'Телефон')]
