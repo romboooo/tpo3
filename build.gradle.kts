@@ -14,7 +14,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-
+    implementation("io.github.cdimascio:dotenv-java:3.0.0")
     implementation("org.seleniumhq.selenium:selenium-java:4.15.0")
     implementation("io.github.bonigarcia:webdrivermanager:5.6.0")
 
