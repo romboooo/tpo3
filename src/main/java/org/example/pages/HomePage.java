@@ -13,7 +13,7 @@ public class HomePage extends Page {
     }
 
     @FindBy(xpath = "//button[contains(text(), 'Войти')]")
-    private WebElement loginButton;
+    public WebElement loginButton;
 
     @FindBy(xpath = "//button[contains(text(), 'Регистрация')]")
     private WebElement registerButton;
