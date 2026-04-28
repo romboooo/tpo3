@@ -17,4 +17,20 @@ public class DomainRegistrationTest extends BaseTest {
                 "Домен уже зарегистрирован. Выберите другой домен.");
         assertTrue(errorAppeared, "Должно появиться сообщение о том, что домен занят");
     }
+
+    @Test
+    public void testFreeDomain() {
+        performLogin();
+        driver.get("https://hosting.timeweb.ru/domains/registration");
+        DomainRegistrationPage domainPage = new DomainRegistrationPage(driver);
+
+        domainPage.enterDomain("qwerqerqrqerqrqerqerqerqerqerqerqe.ru");
+
+        assertTrue(domainPage.isRegisterButtonEnabled(),
+                "Кнопка «Зарегистрировать» должна быть активна для свободного домена");
+
+        domainPage.clickRegisterAndWaitForOrder();
+        assertTrue(driver.getCurrentUrl().contains("#order/"),
+                "После нажатия должен открыться раздел оформления заказа");
+    }
 }

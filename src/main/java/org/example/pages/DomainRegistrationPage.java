@@ -9,11 +9,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class DomainRegistrationPage extends Page {
 
     private final By domainInputLocator = By.xpath("//div[contains(@class,'domain-whois-check__input')]//input[@class='input__field js-input']");
+    private final By successIcon = By.xpath("//div[contains(@class,'domain-whois-check__input')]//svg[contains(@class,'icon-check') and contains(@style,'fill: #68b934')]");
+    private final By registerButtonLocator = By.xpath("//button[contains(@class,'domain-whois-check__button')]");
     private final By errorMessageLocator = By.xpath("//div[contains(@class,'input__help_error')]");
 
     public DomainRegistrationPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this); // оставим для возможных других элементов
+        PageFactory.initElements(driver, this);
     }
 
     public void enterDomain(String domain) {
@@ -31,8 +33,31 @@ public class DomainRegistrationPage extends Page {
         }
     }
 
-    public String getErrorMessage() {
-        WebElement errorElement = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageLocator));
-        return errorElement.getText();
+    public boolean isDomainAvailable() {
+        try {
+            WebElement icon = wait.until(ExpectedConditions.presenceOfElementLocated(successIcon));
+            wait.until(ExpectedConditions.visibilityOf(icon));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRegisterButtonEnabled() {
+        try {
+            wait.until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(registerButtonLocator),
+                    ExpectedConditions.not(ExpectedConditions.attributeContains(registerButtonLocator, "class", "disabled"))
+            ));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickRegisterAndWaitForOrder() {
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(registerButtonLocator));
+        btn.click();
+        wait.until(ExpectedConditions.urlContains("#order/"));
     }
 }
